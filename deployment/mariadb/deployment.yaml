@@ -1,0 +1,57 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb-projects
+  labels:
+    app: jnp2
+    tier: backend
+    component: mariadb-projects
+spec:
+  selector:
+    matchLabels:
+      app: jnp2
+      tier: backend
+      component: mariadb-projects
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: jnp2
+        tier: backend
+        component: mariadb-projects
+    spec:
+      containers:
+        - name: 'mariadb'
+          image: bitnami/mariadb:10.3.20
+          imagePullPolicy: 'IfNotPresent'
+          env:
+            - name: MARIADB_DATABASE
+              value: 'projects'
+            - name: MARIADB_USER
+              value: 'projects'
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-projects
+                  key: password
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-projects
+                  key: root-password
+          ports:
+            - name: mysql
+              containerPort: 3306
+          volumeMounts:
+            - name: data
+              mountPath: /bitnami/mariadb
+      volumes:
+        - name: config
+          configMap:
+            name: mariadb-projects-myconf
+        - name: data
+          persistentVolumeClaim:
+            claimName: mariadb-projects-pvc

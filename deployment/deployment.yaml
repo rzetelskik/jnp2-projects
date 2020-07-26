@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: projects
+  namespace: jnp2
+  labels:
+    app: jnp2
+spec:
+  selector:
+    matchLabels:
+      app: jnp2
+      tier: backend
+      component: projects
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: jnp2
+        tier: backend
+        component: projects
+    spec:
+      containers:
+        - image: rzetelskik/jnp2-projects:latest
+          name: projects
+          envFrom:
+            - configMapRef:
+                name: mariadb-projects-config
+          env:
+            - name: DB_PASSWORD_projects
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-projects
+                  key: root-password
+          ports:
+            - containerPort: 3000
+              name: http
