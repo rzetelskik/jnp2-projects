@@ -56,6 +56,6 @@ metadata:
   name: mariadb-projects-config
   namespace: jnp2
 data:
-  DB_NAME_projects: 'projects'
-  DB_USER_projects: 'root'
-  DB_HOST_projects: 'mariadb-projects.jnp2.svc.cluster.local'
+  DB_NAME_PROJECTS: 'projects'
+  DB_USER_PROJECTS: 'root'
+  DB_HOST_PROJECTS: 'mariadb-projects.jnp2.svc.cluster.local'
