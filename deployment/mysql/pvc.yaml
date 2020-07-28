@@ -2,11 +2,15 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mariadb-projects-pvc
   namespace: jnp2
+  name: mysql-projects-pvc
+  labels:
+    app: jnp2
+    tier: backend
+    component: mysql-projects
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 300Mi
+      storage: 1Gi

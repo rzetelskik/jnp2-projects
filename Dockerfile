@@ -35,8 +35,8 @@ COPY --from=prebuild /usr/local/bundle /usr/local/bundle
 ADD . $APP_OPT
 
 VOLUME ["$APP_OPT/public"]
-EXPOSE 3000
-CMD RAILS_ENV=development bundle exec puma -C config/puma.rb
+EXPOSE 80
+CMD PORT=80 RAILS_ENV=development bundle exec puma -C config/puma.rb
 
 
 

@@ -27,13 +27,13 @@ spec:
           name: projects
           envFrom:
             - configMapRef:
-                name: mariadb-projects-config
+                name: mysql-projects-config
           env:
             - name: DB_PASSWORD_PROJECTS
               valueFrom:
                 secretKeyRef:
-                  name: mariadb-projects
+                  name: mysql-projects
                   key: root-password
           ports:
-            - containerPort: 3000
+            - containerPort: 80
               name: http
