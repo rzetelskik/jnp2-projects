@@ -22,6 +22,19 @@ spec:
         tier: backend
         component: projects
     spec:
+      initContainers:
+        - image: rzetelskik/jnp2-projects:latest
+          name: init-db
+          command: ['/bin/bash', '-c', 'bundle exec rake db:create && bundle exec rake db:migrate']
+          envFrom:
+            - configMapRef:
+                name: mysql-projects-config
+          env:
+            - name: DB_PASSWORD_PROJECTS
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-projects
+                  key: root-password
       containers:
         - image: rzetelskik/jnp2-projects:latest
           name: projects

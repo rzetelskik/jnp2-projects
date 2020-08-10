@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  get 'projects/test', action: :test, controller: 'test'
+  resources :projects, only: [:index, :create, :show] do
+    post :assign, on: :collection
+  end
 end
