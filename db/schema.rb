@@ -18,8 +18,7 @@ ActiveRecord::Schema.define(version: 2020_08_09_172856) do
     t.boolean "active", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "owner"
-    t.index ["project_id", "owner"], name: "index_assignments_on_project_id_and_owner", unique: true
+    t.boolean "owner", default: false
     t.index ["project_id"], name: "index_assignments_on_project_id"
     t.index ["user_id", "project_id"], name: "index_assignments_on_user_id_and_project_id", unique: true
   end

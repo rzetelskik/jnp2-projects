@@ -7,26 +7,21 @@ class Unassign
   end
 
   def call
-    activate_existing_assignment || create_assignment
+    deactivate(assignment)
   end
 
   private
 
   attr_accessor :project_id, :user_id
 
-  def activate_existing_assignment
+  def assignment
     assignment = Assignment.find_by(project_id: project_id, user_id: user_id)
-    return nil if assignment.nil?
+    errors.add(:base, "User has not been assigned yet") if assignment.nil?
 
-    errors.add_multiple_errors(assignment.errors.to_hash) unless assignment.activate
     assignment
   end
 
-  def create_assignment
-    assignment = Assignment.new(project_id: project_id, user_id: user_id)
-    return assignment if assignment&.save
-
-    errors.add_multiple_errors(assignment.errors.to_hash)
-    nil
+  def deactivate(assignment)
+    errors.add_multiple_errors(assignment.errors.to_hash) unless assignment&.deactivate
   end
 end
