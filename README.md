@@ -1,4 +1,4 @@
-# Accounts API
+# Projects API
 
 ## Create
 ### Request
