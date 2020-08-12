@@ -28,7 +28,7 @@
 ## Assign
 ### Request
 - type: PUT
-- path: /projects/:id/assign
+- path: /projects/:id/unassign
 - content: JSON
 - request body:
   ```
