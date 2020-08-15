@@ -23,8 +23,22 @@ spec:
         component: projects
     spec:
       initContainers:
-        - image: rzetelskik/jnp2-projects:latest
-          name: init-db
+        - name: wait-for-db
+          image: busybox:1.28
+          command: ['/bin/sh']
+          args:
+            - -c
+            - >
+              set -x;
+              until nslookup ${DB_HOST_PROJECTS}; do
+                echo waiting for ${DB_HOST_PROJECTS};
+                sleep 2;
+              done;
+          envFrom:
+            - configMapRef:
+                name: mysql-projects-config
+        - name: init-db
+          image: rzetelskik/jnp2-projects:latest
           command: ['/bin/bash', '-c', 'bundle exec rake db:create && bundle exec rake db:migrate']
           envFrom:
             - configMapRef:

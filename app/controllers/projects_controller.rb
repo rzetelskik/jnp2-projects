@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   def create
-    command = Create.call(params.require(:user_id), params.require(:name))
+    command = Create.call(params.require(:name))
     if command.success?
       render_success(command.result.slice(:id))
     else
@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    command = Index.call(params.require(:user_id))
+    command = Index.call
     if command.success?
       render_success(command.result.select(:id, :name))
     else
