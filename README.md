@@ -7,7 +7,7 @@
 - content: JSON
 - additional headers:
   ```
-  Authorize:Token
+  Authorization:Token
   ```
 - request body:
   ```
@@ -35,7 +35,7 @@
 - content: JSON
 - additional headers:
   ```
-  Authorize:Token
+  Authorization:Token
   ```
 - request body:
   ```
@@ -57,7 +57,7 @@
 - content: JSON
 - additional headers:
   ```
-  Authorize:Token
+  Authorization:Token
   ```
 - request body:
   ```
@@ -105,7 +105,7 @@
 - content: JSON
 - additional headers:
   ```
-  Authorize:Token
+  Authorization:Token
   ```
   
 ### Response
