@@ -1,14 +1,17 @@
-# Accounts API
+# Projects API
 
 ## Create
 ### Request
 - type: POST
 - path: /projects/
 - content: JSON
+- additional headers:
+  ```
+  Authorize:Token
+  ```
 - request body:
   ```
   {
-    "user_id": integer,
     "name": string
   }
   ```
@@ -30,6 +33,10 @@
 - type: PUT
 - path: /projects/:id/assign
 - content: JSON
+- additional headers:
+  ```
+  Authorize:Token
+  ```
 - request body:
   ```
   {
@@ -46,8 +53,12 @@
 ## Unassign
 ### Request
 - type: PUT
-- path: /projects/:id/assign
+- path: /projects/:id/unassign
 - content: JSON
+- additional headers:
+  ```
+  Authorize:Token
+  ```
 - request body:
   ```
   {
@@ -65,11 +76,9 @@
 - type: GET
 - path: /projects/
 - content: JSON
-- request body:
+- additional headers:
   ```
-  {
-    "user_id": integer
-  }
+  Authorize:Token
   ```
   
 ### Response
@@ -94,6 +103,10 @@
 - type: GET
 - path: /projects/:id
 - content: JSON
+- additional headers:
+  ```
+  Authorize:Token
+  ```
   
 ### Response
 - content: JSON
