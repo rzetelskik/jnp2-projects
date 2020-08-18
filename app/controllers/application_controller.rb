@@ -8,7 +8,7 @@ class ApplicationController < ActionController::API
 
   def authorize_request
     @current_user ||= authenticated
-    render_error('Unauthorised', :unauthorised) && nil unless authenticated.present?
+    render_error('Unauthorized', :unauthorized) && nil unless authenticated.present?
   end
 
   def authenticated
