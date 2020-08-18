@@ -1,8 +1,9 @@
 class Create
   prepend SimpleCommand
 
-  def initialize(name)
+  def initialize(name, user_id)
     @name = name
+    @user_id = user_id
   end
 
   def call
@@ -22,7 +23,7 @@ class Create
   end
 
   def assign(project)
-    assignment = Assignment.new(project_id: project.id, user_id: @current_user, owner: true)
+    assignment = Assignment.new(project_id: project.id, user_id: user_id, owner: true)
     return assignment if assignment.save
 
     errors.add_multiple_errors(assignment.errors.to_hash)
