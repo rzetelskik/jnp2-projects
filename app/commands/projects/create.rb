@@ -1,4 +1,4 @@
-class Create
+class Projects::Create
   prepend SimpleCommand
 
   def initialize(name, user_id)

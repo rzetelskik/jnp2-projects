@@ -1,4 +1,4 @@
-class Index
+class Projects::Index
   prepend SimpleCommand
 
   def initialize(user_id)

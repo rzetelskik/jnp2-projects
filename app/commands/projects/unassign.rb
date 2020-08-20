@@ -1,4 +1,4 @@
-class Unassign
+class Projects::Unassign
   prepend SimpleCommand
 
   def initialize(project_id, user_id)

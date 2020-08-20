@@ -1,7 +1,9 @@
 # Projects API
 
-## Create
-### Request
+## Projects
+
+### Create
+#### Request
 - type: POST
 - path: /projects/
 - content: JSON
@@ -16,7 +18,7 @@
   }
   ```
   
-### Response:
+#### Response:
 - content: JSON
 - codes:
   - 200 Ok - success
@@ -28,8 +30,8 @@
   }
   ```
   
-## Assign
-### Request
+### Assign
+#### Request
 - type: PUT
 - path: /projects/:id/assign
 - content: JSON
@@ -44,14 +46,14 @@
   }
   ```
   
-### Response
+#### Response
 - content: JSON
 - codes:
   - 204 no content - success
   - 400 Bad Request - params missing/incorrect, user has already been assigned
   
-## Unassign
-### Request
+### Unassign
+#### Request
 - type: PUT
 - path: /projects/:id/unassign
 - content: JSON
@@ -65,14 +67,14 @@
     "user_id": integer
   }
   ```
-### Response
+#### Response
 - content: JSON
 - codes:
   - 204 no content - success
   - 400 Bad Request - params missing/incorrect, user has already been unassigned
   
-## Index
-### Request
+### Index
+#### Request
 - type: GET
 - path: /projects/
 - content: JSON
@@ -81,7 +83,7 @@
   Authorize:Token
   ```
   
-### Response
+#### Response
 - content: JSON
 - codes:
   - 200 Ok - success
@@ -98,8 +100,8 @@
   }
   ```
 
-## Show
-### Request
+### Show
+#### Request
 - type: GET
 - path: /projects/:id
 - content: JSON
@@ -108,7 +110,7 @@
   Authorization:Token
   ```
   
-### Response
+#### Response
 - content: JSON
 - codes:
   - 200 Ok - success
@@ -127,3 +129,5 @@
     ]
   }
   ```
+  
+## Tasks

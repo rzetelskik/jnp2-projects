@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_20_205540) do
+ActiveRecord::Schema.define(version: 2020_08_20_211246) do
 
   create_table "project_assignments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.integer "user_id"
@@ -29,5 +29,26 @@ ActiveRecord::Schema.define(version: 2020_08_20_205540) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "task_assignments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.integer "user_id"
+    t.bigint "task_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["task_id"], name: "index_task_assignments_on_task_id"
+    t.index ["user_id", "task_id"], name: "index_task_assignments_on_user_id_and_task_id", unique: true
+  end
+
+  create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.string "name"
+    t.string "description"
+    t.integer "created_by"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_tasks_on_project_id"
+  end
+
   add_foreign_key "project_assignments", "projects"
+  add_foreign_key "task_assignments", "tasks"
+  add_foreign_key "tasks", "projects"
 end

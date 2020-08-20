@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   def create
-    command = Create.call(params.require(:name), current_user)
+    command = Projects::Create.call(params.require(:name), current_user)
     if command.success?
       render_success(command.result.slice(:id))
     else
@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
   end
 
   def assign
-    command = Assign.call(params.require(:id), params.require(:user_id))
+    command = Projects::Assign.call(params.require(:id), params.require(:user_id))
     if command.success?
       render_success(nil, :no_content)
     else
@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
   end
 
   def unassign
-    command = Unassign.call(params.require(:id), params.require(:user_id))
+    command = Projects::Unassign.call(params.require(:id), params.require(:user_id))
     if command.success?
       render_success(nil, :no_content)
     else
@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    command = Index.call(current_user)
+    command = Projects::Index.call(current_user)
     if command.success?
       render_success(command.result.select(:id, :name))
     else
@@ -36,7 +36,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    command = Show.call(params.require(:id))
+    command = Projects::Show.call(params.require(:id))
     if command.success?
       render_success(command.result)
     else

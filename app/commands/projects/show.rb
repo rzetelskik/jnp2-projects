@@ -1,4 +1,4 @@
-class Show
+class Projects::Show
   prepend SimpleCommand
 
   def initialize(id)

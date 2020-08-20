@@ -4,5 +4,15 @@ Rails.application.routes.draw do
       put :assign
       put :unassign
     end
+
+    resources :tasks, only: [:create, :index] do
+      collection do
+        get :assigned
+      end
+      member do
+        put :assign
+        put :unassign
+      end
+    end
   end
 end
