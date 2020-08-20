@@ -1,4 +1,4 @@
-class Assignment < ApplicationRecord
+class ProjectAssignment < ApplicationRecord
   belongs_to :project
   validates :owner, uniqueness: { scope: :project_id }, if: -> { owner == true}
   validate :active_changed, on: :update

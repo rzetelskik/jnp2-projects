@@ -12,7 +12,7 @@ class Create
 
   private
 
-  attr_accessor :name
+  attr_accessor :user_id, :name
 
   def create_project
     project = Project.new(name: name)
@@ -23,7 +23,7 @@ class Create
   end
 
   def assign(project)
-    assignment = Assignment.new(project_id: project.id, user_id: user_id, owner: true)
+    assignment = ProjectAssignment.new(project_id: project.id, user_id: user_id, owner: true)
     return assignment if assignment.save
 
     errors.add_multiple_errors(assignment.errors.to_hash)

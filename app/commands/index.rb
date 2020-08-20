@@ -14,6 +14,6 @@ class Index
   attr_accessor :user_id
 
   def projects
-    Project.joins(:assignments).where(assignments: {user_id: user_id, active: true})
+    Project.joins(:project_assignments).where(project_assignments: {user_id: user_id, active: true})
   end
 end

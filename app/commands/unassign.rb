@@ -15,7 +15,7 @@ class Unassign
   attr_accessor :project_id, :user_id
 
   def assignment
-    assignment = Assignment.find_by(project_id: project_id, user_id: user_id)
+    assignment = ProjectAssignment.find_by(project_id: project_id, user_id: user_id)
     errors.add(:base, "User has not been assigned yet") if assignment.nil?
 
     assignment
