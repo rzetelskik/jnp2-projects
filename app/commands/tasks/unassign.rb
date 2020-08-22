@@ -1,9 +1,9 @@
 class Tasks::Unassign
   prepend SimpleCommand
 
-  def initialize(task_id:, user_id:)
-    @task_id = task_id
-    @user_id = user_id
+  def initialize(task:, user:)
+    @task = task
+    @user = user
   end
 
   def call
@@ -12,10 +12,10 @@ class Tasks::Unassign
 
   private
 
-  attr_accessor :task_id, :user_id
+  attr_accessor :task, :user
 
   def unassign
-    assignment = TaskAssignment.find_by(task_id: task_id, user_id: user_id)
+    assignment = task.task_assignments.find_by_user(user)
     return if assignment&.destroy
 
     errors.add(:base, 'User is not assigned to this task')

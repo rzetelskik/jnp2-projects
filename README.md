@@ -42,7 +42,7 @@
 - request body:
   ```
   {
-    "user_id": integer
+    "user": string
   }
   ```
   
@@ -64,7 +64,7 @@
 - request body:
   ```
   {
-    "user_id": integer
+    "user": string
   }
   ```
 #### Response

@@ -1,9 +1,9 @@
 class Projects::Assign
   prepend SimpleCommand
 
-  def initialize(project_id, user_id)
-    @project_id = project_id
-    @user_id = user_id
+  def initialize(project:, user:)
+    @project = project
+    @user = user
   end
 
   def call
@@ -12,10 +12,10 @@ class Projects::Assign
 
   private
 
-  attr_accessor :project_id, :user_id
+  attr_accessor :project, :user
 
   def activate_existing_assignment
-    assignment = ProjectAssignment.find_by(project_id: project_id, user_id: user_id)
+    assignment = ProjectAssignment.find_by(project_id: project.id, user: user)
     return nil if assignment.nil?
 
     errors.add_multiple_errors(assignment.errors.to_hash) unless assignment.activate
@@ -23,7 +23,7 @@ class Projects::Assign
   end
 
   def create_assignment
-    assignment = ProjectAssignment.new(project_id: project_id, user_id: user_id)
+    assignment = ProjectAssignment.new(project_id: project.id, user: user)
     return assignment if assignment&.save
 
     errors.add_multiple_errors(assignment.errors.to_hash)

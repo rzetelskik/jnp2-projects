@@ -1,8 +1,8 @@
 class Projects::Index
   prepend SimpleCommand
 
-  def initialize(user_id)
-    @user_id = user_id
+  def initialize(user:)
+    @user = user
   end
 
   def call
@@ -11,9 +11,9 @@ class Projects::Index
 
   private
 
-  attr_accessor :user_id
+  attr_accessor :user
 
   def projects
-    Project.joins(:project_assignments).where(project_assignments: {user_id: user_id, active: true})
+    Project.joins(:project_assignments).where(project_assignments: {user: user, active: true})
   end
 end

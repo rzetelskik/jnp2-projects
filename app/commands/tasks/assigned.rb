@@ -1,9 +1,9 @@
 class Tasks::Assigned
   prepend SimpleCommand
 
-  def initialize(project_id:, user_id:)
-    @project_id = project_id
-    @user_id = user_id
+  def initialize(project:, user:)
+    @project = project
+    @user = user
   end
 
   def call
@@ -12,9 +12,9 @@ class Tasks::Assigned
 
   private
 
-  attr_accessor :project_id, :user_id
+  attr_accessor :project, :user
 
   def assigned
-    Task.joins(:task_assignments).where(project_id: project_id, task_assignments: { user_id: user_id })
+    Task.joins(:task_assignments).where(project_id: project.id, task_assignments: { user: user })
   end
 end

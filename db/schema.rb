@@ -13,14 +13,14 @@
 ActiveRecord::Schema.define(version: 2020_08_20_211246) do
 
   create_table "project_assignments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.integer "user_id"
+    t.string "user"
     t.bigint "project_id", null: false
     t.boolean "active", default: true
     t.boolean "owner", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_project_assignments_on_project_id"
-    t.index ["user_id", "project_id"], name: "index_project_assignments_on_user_id_and_project_id", unique: true
+    t.index ["user", "project_id"], name: "index_project_assignments_on_user_and_project_id", unique: true
   end
 
   create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -30,25 +30,25 @@ ActiveRecord::Schema.define(version: 2020_08_20_211246) do
   end
 
   create_table "task_assignments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.integer "user_id"
+    t.string "user"
     t.bigint "task_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["task_id"], name: "index_task_assignments_on_task_id"
-    t.index ["user_id", "task_id"], name: "index_task_assignments_on_user_id_and_task_id", unique: true
+    t.index ["user", "task_id"], name: "index_task_assignments_on_user_and_task_id", unique: true
   end
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "project_id", null: false
     t.string "name"
     t.string "description"
-    t.integer "created_by"
+    t.string "created_by"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 
-  add_foreign_key "project_assignments", "projects"
-  add_foreign_key "task_assignments", "tasks"
-  add_foreign_key "tasks", "projects"
+  add_foreign_key "project_assignments", "projects", on_delete: :cascade
+  add_foreign_key "task_assignments", "tasks", on_delete: :cascade
+  add_foreign_key "tasks", "projects", on_delete: :cascade
 end

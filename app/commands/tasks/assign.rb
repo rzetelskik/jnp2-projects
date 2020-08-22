@@ -1,9 +1,9 @@
 class Tasks::Assign
   prepend SimpleCommand
 
-  def initialize(task_id:, user_id:)
-    @task_id = task_id
-    @user_id = user_id
+  def initialize(task:, user:)
+    @task = task
+    @user = user
   end
 
   def call
@@ -12,10 +12,10 @@ class Tasks::Assign
 
   private
 
-  attr_accessor :task_id, :user_id
+  attr_accessor :task, :user
 
   def assign
-    assignment = TaskAssignment.new(task_id: task_id, user_id: user_id)
+    assignment = TaskAssignment.new(task_id: task.id, user: user)
     return assignment if assignment&.save
 
     errors.add_multiple_errors(assignment.errors.to_hash)

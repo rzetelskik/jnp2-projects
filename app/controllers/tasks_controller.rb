@@ -1,10 +1,10 @@
 class TasksController < ApplicationController
-  before_action :set_project_id, except: [:assign, :unassign]
-  before_action :set_task_id, only: [:assign, :unassign]
+  before_action :set_project, except: [:assign, :unassign]
+  before_action :set_task, only: [:assign, :unassign, :destroy, :update, :show]
 
   def create
     data = {
-        project_id: project_id,
+        project: project,
         name: params.require(:name),
         description: params.require(:description),
         created_by: current_user
@@ -19,11 +19,11 @@ class TasksController < ApplicationController
 
   def index
     data = {
-        project_id: project_id
+        project: project
     }
     command = Tasks::Index.call(data)
     if command.success?
-      render_success(command.result)
+      render_success(command.result.select(:id, :name, :description))
     else
       render_error(command.errors.full_messages.first, :bad_request)
     end
@@ -31,8 +31,8 @@ class TasksController < ApplicationController
 
   def assigned
     data = {
-        project_id: project_id,
-        user_id: current_user
+        project: project,
+        user: current_user
     }
     command = Tasks::Assigned.call(data)
     if command.success?
@@ -44,8 +44,8 @@ class TasksController < ApplicationController
 
   def assign
     data = {
-        task_id: task_id,
-        user_id: params.require(:user_id)
+        task: task,
+        user: params.require(:user)
     }
     command = Tasks::Assign.call(data)
     if command.success?
@@ -57,8 +57,8 @@ class TasksController < ApplicationController
 
   def unassign
     data = {
-        task_id: task_id,
-        user_id: params.require(:user_id)
+        task: task,
+        user: params.require(:user)
     }
     command = Tasks::Unassign.call(data)
     if command.success?
@@ -68,15 +68,53 @@ class TasksController < ApplicationController
     end
   end
 
-  private
-
-  attr_accessor :project_id, :task_id
-
-  def set_project_id
-    @project_id = params.require(:project_id)
+  def destroy
+    data = {
+        task: task
+    }
+    command = Tasks::Destroy.call(data)
+    if command.success?
+      render_no_content
+    else
+      render_error(command.errors.full_messages.first, :bad_request)
+    end
   end
 
-  def set_task_id
-    @task_id = params.require(:id)
+  def update
+    data = {
+        task: task,
+        name: params.require(:name),
+        description: params.require(:description)
+    }
+    command = Tasks::Update.call(data)
+    if command.success?
+      render_no_content
+    else
+      render_error(command.errors.full_messages.first, :bad_request)
+    end
+  end
+
+  def show
+    data = {
+        task: task
+    }
+    command = Tasks::Show.call(data)
+    if command.success?
+      render_success(command.result, :ok)
+    else
+      render_error(command.errors.full_messages.first, :bad_request)
+    end
+  end
+
+  private
+
+  attr_accessor :project, :task
+
+  def set_project
+    @project = Project.find(params.require(:project_id))
+  end
+
+  def set_task
+    @task = Task.find(params.require(:id))
   end
 end

@@ -1,9 +1,9 @@
 class Projects::Create
   prepend SimpleCommand
 
-  def initialize(name, user_id)
+  def initialize(name:, user:)
     @name = name
-    @user_id = user_id
+    @user = user
   end
 
   def call
@@ -12,7 +12,7 @@ class Projects::Create
 
   private
 
-  attr_accessor :user_id, :name
+  attr_accessor :user, :name
 
   def create_project
     project = Project.new(name: name)
@@ -23,7 +23,7 @@ class Projects::Create
   end
 
   def assign(project)
-    assignment = ProjectAssignment.new(project_id: project.id, user_id: user_id, owner: true)
+    assignment = ProjectAssignment.new(project_id: project.id, user: user, owner: true)
     return assignment if assignment.save
 
     errors.add_multiple_errors(assignment.errors.to_hash)

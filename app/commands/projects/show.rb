@@ -1,8 +1,8 @@
 class Projects::Show
   prepend SimpleCommand
 
-  def initialize(id)
-    @id = id
+  def initialize(project:)
+    @project = project
   end
 
   def call
@@ -11,9 +11,5 @@ class Projects::Show
 
   private
 
-  attr_accessor :id
-
-  def project
-    Project.find(id)
-  end
+  attr_accessor :project
 end

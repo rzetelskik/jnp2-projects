@@ -1,4 +1,4 @@
-class Tasks::Index
+class Projects::Destroy
   prepend SimpleCommand
 
   def initialize(project:)
@@ -6,14 +6,17 @@ class Tasks::Index
   end
 
   def call
-    tasks
+    destroy
   end
 
   private
 
   attr_accessor :project
 
-  def tasks
-    project.tasks
+  def destroy
+    return if project.destroy
+
+    errors.add_multiple_errors(project.errors.to_hash)
+    nil
   end
 end

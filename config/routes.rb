@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  resources :projects, only: [:index, :create, :show] do
+  resources :projects, only: [:index, :create, :show, :destroy, :update] do
     member do
       put :assign
       put :unassign
     end
 
-    resources :tasks, only: [:create, :index] do
+    resources :tasks, only: [:create, :index, :destroy, :update, :show] do
       collection do
         get :assigned
       end

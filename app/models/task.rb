@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
-  has_many :task_assignments
+  belongs_to :project
+  has_many :task_assignments, dependent: :destroy
   validates :project_id, presence: true
   validates :name, presence: true
   validates :description, presence: true
