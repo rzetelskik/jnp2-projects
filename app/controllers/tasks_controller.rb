@@ -7,7 +7,8 @@ class TasksController < ApplicationController
         project: project,
         name: params.require(:name),
         description: params.require(:description),
-        created_by: current_user
+        created_by: current_user,
+        status_id: params.permit(:status_id)&.dig(:status_id)
     }
     command = Tasks::Create.call(data)
     if command.success?
@@ -84,7 +85,8 @@ class TasksController < ApplicationController
     data = {
         task: task,
         name: params.require(:name),
-        description: params.require(:description)
+        description: params.require(:description),
+        status_id: params.permit(:status_id)&.dig(:status_id)
     }
     command = Tasks::Update.call(data)
     if command.success?

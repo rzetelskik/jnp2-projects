@@ -5,6 +5,8 @@ Rails.application.routes.draw do
       put :unassign
     end
 
+    resources :statuses, only: [:create, :index, :destroy, :update]
+
     resources :tasks, only: [:create, :index, :destroy, :update, :show] do
       collection do
         get :assigned

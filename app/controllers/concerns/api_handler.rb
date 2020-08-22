@@ -4,10 +4,10 @@ module ApiHandler
   end
 
   def render_no_content
-    render json: {}, status: :no_content
+    render_success({}, :no_content)
   end
 
-  def render_success(data = nil, status = :ok)
+  def render_success(data = {}, status = :ok)
     render json: data, status: status
   end
 end

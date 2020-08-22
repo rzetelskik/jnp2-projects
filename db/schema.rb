@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_20_211246) do
+ActiveRecord::Schema.define(version: 2020_08_22_143901) do
 
   create_table "project_assignments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "user"
@@ -29,6 +29,13 @@ ActiveRecord::Schema.define(version: 2020_08_20_211246) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "project_id", null: false
+    t.index ["project_id", "name"], name: "index_statuses_on_project_id_and_name", unique: true
+    t.index ["project_id"], name: "index_statuses_on_project_id"
+  end
+
   create_table "task_assignments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "user"
     t.bigint "task_id", null: false
@@ -45,10 +52,14 @@ ActiveRecord::Schema.define(version: 2020_08_20_211246) do
     t.string "created_by"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "status_id"
     t.index ["project_id"], name: "index_tasks_on_project_id"
+    t.index ["status_id"], name: "index_tasks_on_status_id"
   end
 
   add_foreign_key "project_assignments", "projects", on_delete: :cascade
+  add_foreign_key "statuses", "projects", on_delete: :cascade
   add_foreign_key "task_assignments", "tasks", on_delete: :cascade
   add_foreign_key "tasks", "projects", on_delete: :cascade
+  add_foreign_key "tasks", "statuses", on_delete: :nullify
 end

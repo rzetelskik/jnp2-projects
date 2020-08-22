@@ -1,11 +1,12 @@
 class Tasks::Create
   prepend SimpleCommand
 
-  def initialize(project:, name:, description:, created_by:)
+  def initialize(project:, name:, description:, created_by:, status_id: nil)
     @project = project
     @name = name
     @description = description
     @created_by = created_by
+    @status_id = status_id
   end
 
   def call
@@ -14,10 +15,10 @@ class Tasks::Create
 
   private
 
-  attr_accessor :project, :name, :description, :created_by
+  attr_accessor :project, :name, :description, :created_by, :status_id
 
   def create_task
-    task = Task.new(project_id: project.id, name: name, description: description, created_by: created_by)
+    task = Task.new(project_id: project.id, name: name, description: description, created_by: created_by, status_id: status_id)
     return task if task.save
 
     errors.add_multiple_errors(task.errors.to_hash)
