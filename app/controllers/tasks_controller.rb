@@ -24,7 +24,7 @@ class TasksController < ApplicationController
     }
     command = Tasks::Index.call(data)
     if command.success?
-      render_success(command.result.select(:id, :name, :description))
+      render_success(command.result.select(:id, :name, :description, :status_id))
     else
       render_error(command.errors.full_messages.first, :bad_request)
     end
