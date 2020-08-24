@@ -24,6 +24,7 @@ module Projects
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
+    config.autoload_paths += %W(#{config.root}/lib/)
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
@@ -33,6 +34,7 @@ module Projects
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-    config.hosts << 'projects'
+    config.hosts << ENV.fetch('HOST_PROJECTS', "localhost")
+    config.rabbitmq_host = ENV.fetch("HOST_RABBITMQ", "localhost")
   end
 end

@@ -9,6 +9,9 @@ gem 'tzinfo-data'
 gem "mysql2", "~> 0.5.3"
 gem "jwt", "~> 2.2"
 gem "simple_command", "~> 0.1.0"
+gem "bunny", "~> 2.16"
+gem "json", "~> 2.3"
+
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -19,3 +22,4 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
+

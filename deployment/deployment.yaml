@@ -43,6 +43,10 @@ spec:
           envFrom:
             - configMapRef:
                 name: mysql-projects-config
+            - configMapRef:
+                name: projects-config
+            - configMapRef:
+                name: rabbitmq-config
           env:
             - name: DB_PASSWORD_PROJECTS
               valueFrom:
@@ -55,6 +59,10 @@ spec:
           envFrom:
             - configMapRef:
                 name: mysql-projects-config
+            - configMapRef:
+                name: projects-config
+            - configMapRef:
+                name: rabbitmq-config
           env:
             - name: DB_PASSWORD_PROJECTS
               valueFrom:
