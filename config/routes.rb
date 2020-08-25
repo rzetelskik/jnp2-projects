@@ -13,7 +13,6 @@ Rails.application.routes.draw do
       end
       member do
         put :assign
-        put :unassign
       end
     end
   end

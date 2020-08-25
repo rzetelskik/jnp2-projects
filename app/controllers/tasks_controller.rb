@@ -8,7 +8,7 @@ class TasksController < ApplicationController
         name: params.require(:name),
         description: params.require(:description),
         created_by: current_user,
-        status_id: params.permit(:status_id)&.dig(:status_id)
+        status_id: params&.dig(:status_id)
     }
     command = Tasks::Create.call(data)
     if command.success?
@@ -46,22 +46,9 @@ class TasksController < ApplicationController
   def assign
     data = {
         task: task,
-        user: params.require(:user)
+        users: params&.dig(:users)
     }
     command = Tasks::Assign.call(data)
-    if command.success?
-      render_success(command.result, :no_content)
-    else
-      render_error(command.errors.full_messages.first, :bad_request)
-    end
-  end
-
-  def unassign
-    data = {
-        task: task,
-        user: params.require(:user)
-    }
-    command = Tasks::Unassign.call(data)
     if command.success?
       render_success(command.result, :no_content)
     else
@@ -86,7 +73,7 @@ class TasksController < ApplicationController
         task: task,
         name: params.require(:name),
         description: params.require(:description),
-        status_id: params.permit(:status_id)&.dig(:status_id)
+        status_id: params&.dig(:status_id)
     }
     command = Tasks::Update.call(data)
     if command.success?

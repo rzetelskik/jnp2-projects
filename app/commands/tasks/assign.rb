@@ -1,9 +1,9 @@
 class Tasks::Assign
   prepend SimpleCommand
 
-  def initialize(task:, user:)
+  def initialize(task:, users:)
     @task = task
-    @user = user
+    @users = users || []
   end
 
   def call
@@ -12,13 +12,19 @@ class Tasks::Assign
 
   private
 
-  attr_accessor :task, :user
+  attr_accessor :task, :users
+
+  def assigned
+    @assigned ||= task.task_assignments.pluck(:user)
+  end
 
   def assign
-    assignment = TaskAssignment.new(task_id: task.id, user: user)
-    return assignment if assignment&.save
+    TaskAssignment.where(user: (assigned - users)).destroy_all
 
-    errors.add_multiple_errors(assignment.errors.to_hash)
-    nil
+    (users - assigned)&.try(:each) do |user|
+      assignment = TaskAssignment.new(task: task, user: user)
+
+      errors.add_multiple_errors(assignment.errors.to_hash) unless assignment&.save
+    end
   end
 end
