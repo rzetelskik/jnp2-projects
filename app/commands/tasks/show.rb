@@ -6,7 +6,7 @@ class Tasks::Show
   end
 
   def call
-    task.as_json.merge({ assignees: task.task_assignments.to_json })
+    task.as_json.merge({assignees: task.task_assignments.pluck(:user)})
   end
 
   private

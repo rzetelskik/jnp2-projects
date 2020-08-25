@@ -6,7 +6,7 @@ class Projects::Show
   end
 
   def call
-    project
+    project.as_json.merge({ assignees: project.project_assignments.pluck(:user, :owner) })
   end
 
   private
