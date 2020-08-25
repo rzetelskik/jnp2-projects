@@ -6,7 +6,7 @@ class Tasks::Show
   end
 
   def call
-    task
+    task.as_json.merge({ assignees: task.task_assignments.to_json })
   end
 
   private
