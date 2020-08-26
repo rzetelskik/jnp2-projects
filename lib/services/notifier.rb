@@ -1,10 +1,11 @@
 require 'json'
 
 class Services::Notifier
-  def initialize(routing_key:, type:, message:)
+  def initialize(routing_key:, resource:, action:, payload:)
     @routing_key = routing_key
-    @type = type
-    @message = message
+    @resource = resource
+    @action = action
+    @payload = payload
   end
 
   def call
@@ -13,10 +14,10 @@ class Services::Notifier
 
   private
 
-  attr_accessor :routing_key, :type, :message
+  attr_accessor :routing_key, :resource, :action, :payload
 
   def publish
-    exchange.publish({ type: type, msg: message }.to_json, routing_key: routing_key)
+    exchange.publish({ resource: resource, action: action, payload: payload }.to_json, routing_key: routing_key)
     connection.close
   end
 

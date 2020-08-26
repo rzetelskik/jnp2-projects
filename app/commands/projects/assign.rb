@@ -8,11 +8,22 @@ class Projects::Assign
 
   def call
     activate_existing_assignment || create_assignment
+    notify if success?
   end
 
   private
 
   attr_accessor :project, :user
+
+  def notify
+    data = {
+        routing_key: user,
+        resource: 'project',
+        action: 'assign',
+        payload: project
+    }
+    Services::Notifier.new(data).call
+  end
 
   def activate_existing_assignment
     assignment = ProjectAssignment.find_by(project_id: project.id, user: user)
