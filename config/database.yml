@@ -6,7 +6,7 @@ default: &default
   database: <%= ENV.fetch("DB_NAME_PROJECTS") { 'projects' } %>
   username: <%= ENV.fetch("DB_USER_PROJECTS") { 'root' } %>
   password: <%= ENV.fetch("DB_PASSWORD_PROJECTS") { '' } %>
-  host: <%= ENV.fetch("DB_HOST_PROJECTS") { '127.0.0.1' } %>
+  host: <%= ENV.fetch("DB_HOST_PROJECTS") { 'localhost' } %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
   migrations_paths: db/migrate
