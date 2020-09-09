@@ -23,7 +23,7 @@ class Services::Notifier
 
   def connection
     @connection ||= begin
-                      connection = Bunny.new(host: Rails.configuration.rabbitmq_host)
+                      connection = Bunny.new(host: 'rabbitmq.jnp2.svc.cluster.local')
                       connection.start
                     end
   end

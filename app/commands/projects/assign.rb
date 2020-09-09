@@ -7,8 +7,7 @@ class Projects::Assign
   end
 
   def call
-    activate_existing_assignment || create_assignment
-    notify if success?
+    (activate_existing_assignment || create_assignment) && notify
   end
 
   private

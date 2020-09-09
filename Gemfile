@@ -11,6 +11,7 @@ gem "jwt", "~> 2.2"
 gem "simple_command", "~> 0.1.0"
 gem "bunny", "~> 2.16"
 gem "json", "~> 2.3"
+gem "memoist", "~> 0.16.2"
 
 
 group :development, :test do
