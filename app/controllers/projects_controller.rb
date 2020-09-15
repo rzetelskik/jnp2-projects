@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
     }
     command = Projects::Create.call(data)
     if command.success?
-      render_success(command.result.slice(:id))
+      render_success(command.result.slice(:id), :created)
     else
       render_error(command.errors.full_messages.first, :bad_request)
     end
@@ -34,7 +34,7 @@ class ProjectsController < ApplicationController
     }
     command = Projects::Unassign.call(data)
     if command.success?
-      render_success(nil, :no_content)
+      render_no_content
     else
       render_error(command.errors.full_messages.first, :bad_request)
     end
