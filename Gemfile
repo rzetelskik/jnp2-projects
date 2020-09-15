@@ -12,6 +12,7 @@ gem "simple_command", "~> 0.1.0"
 gem "bunny", "~> 2.16"
 gem "json", "~> 2.3"
 gem "memoist", "~> 0.16.2"
+gem "httparty", "~> 0.18.1"
 
 
 group :development, :test do
@@ -23,4 +24,3 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
-

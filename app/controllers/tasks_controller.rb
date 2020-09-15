@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
-  before_action :set_project, except: [:assign, :unassign]
-  before_action :set_task, only: [:assign, :unassign, :destroy, :update, :show]
+  before_action :set_project, except: [:assign]
+  before_action :set_task, only: [:assign, :destroy, :update, :show]
 
   def create
     data = {

@@ -62,6 +62,8 @@ spec:
             - configMapRef:
                 name: projects-config
             - configMapRef:
+                name: accounts-config
+            - configMapRef:
                 name: rabbitmq-config
           env:
             - name: DB_PASSWORD_PROJECTS

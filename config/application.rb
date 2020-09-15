@@ -35,6 +35,7 @@ module Projects
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.hosts << ENV.fetch('HOST_PROJECTS', 'localhost')
-    config.rabbitmq_host = ENV.fetch("HOST_RABBITMQ", "localhost")
+    config.rabbitmq_service_host = ENV.fetch("HOST_RABBITMQ", "localhost")
+    config.accounts_service_host = ENV.fetch('HOST_ACCOUNTS', 'http://localhost:3001')
   end
 end
