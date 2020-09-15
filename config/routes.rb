@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       put :unassign
     end
 
-    resources :statuses, only: [:create, :index, :destroy, :update]
+    resources :statuses, only: [:create, :index, :destroy, :update], controller: :statuses
 
     resources :tasks, only: [:create, :index, :destroy, :update, :show] do
       collection do

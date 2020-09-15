@@ -1,6 +1,5 @@
 class StatusesController < ApplicationController
   before_action :set_project
-  before_action :set_status, only: [:update, :destroy]
 
   def create
     data = {
@@ -29,7 +28,7 @@ class StatusesController < ApplicationController
 
   def update
     data = {
-        status: status,
+        status: Status.find(params.require(:id)),
         name: params.require(:name)
     }
     command = Statuses::Update.call(data)
@@ -42,7 +41,7 @@ class StatusesController < ApplicationController
 
   def destroy
     data = {
-        status: status
+        status: Status.find(params.require(:id))
     }
     command = Statuses::Destroy.call(data)
     if command.success?
@@ -54,13 +53,9 @@ class StatusesController < ApplicationController
 
   private
 
-  attr_accessor :project, :status
+  attr_accessor :project
 
   def set_project
     @project = Project.find(params.require(:project_id))
-  end
-
-  def set_status
-    @status = Status.find(params.require(:id))
   end
 end
